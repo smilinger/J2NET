@@ -65,14 +65,14 @@ namespace J2NET.Utilities
             if (!File.Exists("/etc/os-release"))
                 return false;
 
-            foreach (ReadOnlySpan<char> line in File.ReadLines("/etc/os-release"))
+            foreach (var str in File.ReadLines("/etc/os-release"))
             {
-                if (!line.StartsWith("ID=", StringComparison.Ordinal))
+                ReadOnlySpan<char> line = str.AsSpan();
+                if (!line.StartsWith("ID=".AsSpan(), StringComparison.Ordinal))
                     continue;
 
-                ReadOnlySpan<char> id = line[3..].Trim('"').Trim('\'');
-
-                if (id.Equals("alpine", StringComparison.OrdinalIgnoreCase))
+                ReadOnlySpan<char> id = line.Slice(3).Trim('"').Trim('\'');
+                if (id.Equals("alpine".AsSpan(), StringComparison.OrdinalIgnoreCase))
                     return true;
             }
 

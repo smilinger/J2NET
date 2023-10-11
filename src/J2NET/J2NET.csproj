@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>CHEQUER</Authors>
     <Company>CHEQUER</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -9,11 +9,20 @@
     <RepositoryUrl>https://github.com/chequer-io/J2NET</RepositoryUrl>
     <PackageIcon>Logo.jpg</PackageIcon>
     <Description>Provides an environment for running Java in .NET</Description>
+    <LangVersion>9.0</LangVersion>
+    <AssemblyVersion></AssemblyVersion>
+    <FileVersion></FileVersion>
+    <Version>1.3.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\..\LICENSE" Pack="True" PackagePath="" />
     <None Include="..\..\Logo.jpg" Pack="True" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="7.0.0" />
+    <PackageReference Include="System.Memory" Version="4.5.5" />
   </ItemGroup>
 
 </Project>
