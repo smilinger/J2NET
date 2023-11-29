@@ -6,6 +6,22 @@ namespace J2NET.Utilities
 {
     public static class PathUtility
     {
+        public static string GetInstalledJavaPath()
+        {
+            var javaHome = Environment.GetEnvironmentVariable("JAVA_HOME");
+            if (!string.IsNullOrEmpty(javaHome))
+                return Path.Combine(javaHome, "bin", "java");
+
+            var paths = Environment.GetEnvironmentVariable("PATH").Split(';');
+            foreach (var path in paths)
+            {
+                var javaPath = Path.Combine(path, "java.exe");
+                if (File.Exists(javaPath))
+                    return javaPath;
+            }
+            return null;
+        }
+
         public static string GetRuntimePath()
         {
             var directory = Path.GetDirectoryName(typeof(PathUtility).Assembly.Location) ?? throw new DirectoryNotFoundException();

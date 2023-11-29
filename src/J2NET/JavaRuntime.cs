@@ -19,7 +19,9 @@ namespace J2NET
 
         public static Process Execute(string value, string arguments = null)
         {
-            var runtimePath = PathUtility.GetRuntimePath();
+            var runtimePath = PathUtility.GetInstalledJavaPath();
+            if (string.IsNullOrEmpty(runtimePath))
+                runtimePath = PathUtility.GetRuntimePath();
 
             if (!Directory.Exists(Path.GetDirectoryName(runtimePath)))
                 throw new RuntimeNotFoundException();
