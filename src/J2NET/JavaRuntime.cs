@@ -26,9 +26,16 @@ namespace J2NET
             if (!Directory.Exists(Path.GetDirectoryName(runtimePath)))
                 throw new RuntimeNotFoundException();
 
-            return !string.IsNullOrEmpty(arguments)
-                ? Process.Start(runtimePath, $"{value} {arguments}")
-                : Process.Start(runtimePath, $"{value}");
+            var args = $"{value} {arguments}".Trim();
+            var startInfo = new ProcessStartInfo(runtimePath, args)
+            {
+#if RELEASE
+                UseShellExecute = false,
+                CreateNoWindow = true,
+#endif
+            };
+
+            return Process.Start(startInfo);
         }
     }
 }
